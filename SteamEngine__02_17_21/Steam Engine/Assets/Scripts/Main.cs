@@ -54,12 +54,14 @@ public int iteration=0;
         pipe.AppliedForce = new Vector2(0,0);
         largeRodPipe.AngularVelocity = 0;
         largeRodPipe.LinearVelocity = new Vector2(0,0);
+        smallRodPipe.AngularVelocity = 0;
         GD.Print("here");
       }
       else{
         pipe.AddCentralForce(steamForce);
         largeRodPipe.LinearVelocity = pipe.LinearVelocity;
-        largeRodPipe.AngularVelocity=-(float)0.1;
+        largeRodPipe.AngularVelocity = -(float)0.1;
+        smallRodPipe.AngularVelocity = (float)0.4;
       }
       
   }

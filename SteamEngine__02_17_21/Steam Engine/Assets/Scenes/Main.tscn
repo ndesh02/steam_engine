@@ -112,23 +112,25 @@ texture = ExtResource( 8 )
 
 [node name="Large_Rod_Wheel" type="RigidBody2D" parent="Sprites"]
 position = Vector2( 938.015, 466.221 )
-rotation = 0.336849
+rotation = 0.523599
 z_index = 4
 z_as_relative = false
 
 [node name="Wheel Large Rod_Trans" type="Sprite" parent="Sprites/Large_Rod_Wheel"]
-position = Vector2( 212.51, 1.31229 )
+position = Vector2( 224.458, 1.31229 )
+scale = Vector2( 1.05128, 1 )
 z_as_relative = false
 texture = ExtResource( 3 )
 
 [node name="Small_Rod_Wheel" type="RigidBody2D" parent="Sprites"]
 position = Vector2( 1355.92, 504.767 )
-rotation = 1.74533
+rotation = 1.65806
 z_index = 5
 z_as_relative = false
 
 [node name="Wheel Small Rod_Trans" type="Sprite" parent="Sprites/Small_Rod_Wheel"]
-position = Vector2( 52.8037, -0.772095 )
+position = Vector2( 100.159, -0.772095 )
+scale = Vector2( 1.66231, 1 )
 z_as_relative = false
 texture = ExtResource( 9 )
 

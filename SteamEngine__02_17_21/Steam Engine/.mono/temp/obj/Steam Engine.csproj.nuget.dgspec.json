@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21 - Copy\\Steam Engine\\Steam Engine.csproj": {}
+    "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21\\Steam Engine\\Steam Engine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21 - Copy\\Steam Engine\\Steam Engine.csproj": {
+    "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21\\Steam Engine\\Steam Engine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21 - Copy\\Steam Engine\\Steam Engine.csproj",
+        "projectUniqueName": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21\\Steam Engine\\Steam Engine.csproj",
         "projectName": "Steam Engine",
-        "projectPath": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21 - Copy\\Steam Engine\\Steam Engine.csproj",
+        "projectPath": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21\\Steam Engine\\Steam Engine.csproj",
         "packagesPath": "C:\\Users\\ndesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21 - Copy\\Steam Engine\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\ndesh\\steam\\SteamEngine__02_17_21\\Steam Engine\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ndesh\\AppData\\Roaming\\NuGet\\NuGet.Config"
