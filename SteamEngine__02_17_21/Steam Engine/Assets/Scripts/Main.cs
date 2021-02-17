@@ -50,14 +50,18 @@ public int iteration=0;
         GD.Print("rodForce "+largeRodPipe.AppliedForce);
       }*/
       if(pipe.Position.x < 539){
+        pipe.LinearVelocity = new Vector2(0,0);
         pipe.AppliedForce = new Vector2(0,0);
+        largeRodPipe.AngularVelocity = 0;
+        largeRodPipe.LinearVelocity = new Vector2(0,0);
         GD.Print("here");
       }
       else{
         pipe.AddCentralForce(steamForce);
+        largeRodPipe.LinearVelocity = pipe.LinearVelocity;
+        largeRodPipe.AngularVelocity=-(float)0.1;
       }
-      largeRodPipe.LinearVelocity = pipe.LinearVelocity;
-      largeRodPipe.AngularVelocity=2;
+      
   }
 
   public void testing(){
