@@ -58,9 +58,10 @@ steamInTankPath = NodePath("Steam_particles/InBox")
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="Wheel" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 1354.36, 506.199 )
+position = Vector2( 1269.16, 534.668 )
 z_index = 1
 z_as_relative = false
+gravity_scale = 0.0
 angular_velocity = 3.0
 
 [node name="Flywheel_Trans" type="Sprite" parent="Sprites/Wheel"]
@@ -68,22 +69,25 @@ z_as_relative = false
 texture = ExtResource( 2 )
 
 [node name="Large_Rod_Limiter" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 749.621, 655.824 )
-rotation = -0.336849
+position = Vector2( 957.277, 653.017 )
+rotation = -0.349066
+scale = Vector2( 0.99, 1 )
 z_index = 2
 z_as_relative = false
+gravity_scale = 0.0
 
 [node name="Limiter Large Rod_Trans" type="Sprite" parent="Sprites/Large_Rod_Limiter"]
-position = Vector2( 321.304, 1.33856 )
-scale = Vector2( 1.39761, 1 )
+position = Vector2( 192.871, -0.989197 )
+scale = Vector2( 0.878197, 1 )
 z_as_relative = false
 texture = ExtResource( 7 )
 
 [node name="Small_Rod_Limiter" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 1356.37, 500.009 )
-rotation = 1.5708
+position = Vector2( 1268.82, 535.928 )
+rotation = 2.79253
 z_index = 3
 z_as_relative = false
+gravity_scale = 0.0
 
 [node name="Limiter Small Rod_Trans" type="Sprite" parent="Sprites/Small_Rod_Limiter"]
 position = Vector2( -28.3114, -1.62341 )
@@ -95,8 +99,10 @@ texture = ExtResource( 5 )
 position = Vector2( 540.891, 620.919 )
 z_index = 1
 z_as_relative = false
+gravity_scale = 0.0
 
 [node name="Limiter_Trans" type="Sprite" parent="Sprites/Limiter"]
+position = Vector2( 207, 0 )
 z_index = 1
 z_as_relative = false
 texture = ExtResource( 6 )
@@ -111,33 +117,39 @@ z_as_relative = false
 texture = ExtResource( 8 )
 
 [node name="Large_Rod_Wheel" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 938.015, 466.221 )
-rotation = 0.523599
+visible = false
+position = Vector2( 722.329, 465.976 )
 z_index = 4
 z_as_relative = false
+gravity_scale = 0.0
+angular_damp = 0.0
 
 [node name="Wheel Large Rod_Trans" type="Sprite" parent="Sprites/Large_Rod_Wheel"]
-position = Vector2( 224.458, 1.31229 )
+position = Vector2( 224.458, 0 )
 scale = Vector2( 1.05128, 1 )
 z_as_relative = false
 texture = ExtResource( 3 )
 
 [node name="Small_Rod_Wheel" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 1355.92, 504.767 )
-rotation = 1.65806
+visible = false
+position = Vector2( 1267.91, 535.481 )
+rotation = -2.43823
 z_index = 5
 z_as_relative = false
+gravity_scale = 0.0
 
 [node name="Wheel Small Rod_Trans" type="Sprite" parent="Sprites/Small_Rod_Wheel"]
-position = Vector2( 100.159, -0.772095 )
-scale = Vector2( 1.66231, 1 )
+position = Vector2( 54.1381, -1.33337 )
+scale = Vector2( 1.25, 1.5 )
 z_as_relative = false
 texture = ExtResource( 9 )
 
 [node name="Cylinder" type="RigidBody2D" parent="Sprites"]
-position = Vector2( 742.163, 468.946 )
+position = Vector2( 538.9, 466.701 )
 z_index = 1
 z_as_relative = false
+gravity_scale = 0.0
+angular_damp = 0.0
 
 [node name="Cylinder_Trans" type="Sprite" parent="Sprites/Cylinder"]
 z_index = 1
@@ -145,25 +157,24 @@ z_as_relative = false
 texture = ExtResource( 1 )
 
 [node name="Joints" type="Node2D" parent="."]
-visible = false
 
 [node name="Pipe_Large_Rod_Small_Rod" type="PinJoint2D" parent="Joints"]
-position = Vector2( 1338.46, 602.716 )
+position = Vector2( 1182.09, 466.337 )
 
 [node name="Pipe_and_Large_Rod" type="PinJoint2D" parent="Joints"]
-position = Vector2( 940.803, 470.402 )
+position = Vector2( 721.923, 464.228 )
 
 [node name="Wheel_and_Small_Rod_Pipe" type="PinJoint2D" parent="Joints"]
-position = Vector2( 1356.56, 509.766 )
+position = Vector2( 1558.9, 304.356 )
 
 [node name="Limiter_Large_Rod_Small_Rod" type="PinJoint2D" parent="Joints"]
-position = Vector2( 1355.93, 441.796 )
+position = Vector2( 1532.45, 281.284 )
 
 [node name="Limiter_and_Large_Rod" type="PinJoint2D" parent="Joints"]
-position = Vector2( 765.111, 652.57 )
+position = Vector2( 612.456, 791.194 )
 
 [node name="Wheel_and_Small_Rod_Limiter" type="PinJoint2D" parent="Joints"]
-position = Vector2( 1359.35, 500.103 )
+position = Vector2( 1481.99, 365.408 )
 
 [node name="Steam_particles" type="Node2D" parent="."]
 
