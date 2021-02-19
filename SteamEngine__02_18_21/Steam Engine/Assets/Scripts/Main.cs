@@ -55,6 +55,8 @@ public bool right = false;
           largeRodLimiter.LinearVelocity = new Vector2(0,0);
           largeRodLimiter.AngularVelocity = 0;
           smallRodLimiter.AngularVelocity = 0;
+          GD.Print(largeRodLimiter.Position.x);
+          
         }
         if(pipe.Position.x < 539 && right==false){
           right = true;
@@ -67,6 +69,7 @@ public bool right = false;
           largeRodLimiter.LinearVelocity = new Vector2(0,0);
           largeRodLimiter.AngularVelocity = 0;
           smallRodLimiter.AngularVelocity = 0;
+          GD.Print(largeRodLimiter.Position.x);
           iteration++;
         }
         if(right==false){
@@ -81,8 +84,13 @@ public bool right = false;
           smallRodPipe.AngularVelocity = -(float)0.0082*Math.Abs(pipe.LinearVelocity.x)-(float)0.53;
           limiter.LinearVelocity = -pipe.LinearVelocity;
           largeRodLimiter.LinearVelocity = limiter.LinearVelocity;
-         /* largeRodLimiter.AngularVelocity = -(float)0.1;
-          smallRodLimiter.AngularVelocity = (float)0.4;*/
+          if(largeRodLimiter.Position.x >853){
+            largeRodLimiter.AngularVelocity = -(float)0.1;
+          }else{
+            largeRodLimiter.AngularVelocity = (float)0.1;
+          }
+          largeRodLimiter.RotationDegrees = largeRodLimiter.RotationDegrees + ((float)0.19099*(iteration-1));
+          smallRodLimiter.AngularVelocity = -(float)0.5-(float)0.02*Math.Abs(limiter.LinearVelocity.x);
         }
         if(right==true){
           pipe.AddCentralForce(-steamForce);
@@ -96,8 +104,14 @@ public bool right = false;
           smallRodPipe.AngularVelocity = -(float)0.0082*Math.Abs(pipe.LinearVelocity.x)-(float)0.53;
           limiter.LinearVelocity = -pipe.LinearVelocity;
           largeRodLimiter.LinearVelocity = limiter.LinearVelocity;
-         /* largeRodLimiter.AngularVelocity = (float)0.1;
-          smallRodLimiter.AngularVelocity = -(float)0.4;*/
+          if(largeRodLimiter.Position.x >853){
+            largeRodLimiter.AngularVelocity = -(float)0.1;
+          }else{
+            largeRodLimiter.AngularVelocity = (float)0.1;
+          }
+          largeRodLimiter.RotationDegrees = largeRodLimiter.RotationDegrees + ((float)0.19099*(iteration-1));
+
+          smallRodLimiter.AngularVelocity = -(float)0.5-(float)0.02*Math.Abs(limiter.LinearVelocity.x);
         }
 
       
