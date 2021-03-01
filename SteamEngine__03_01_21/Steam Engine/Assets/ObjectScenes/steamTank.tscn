@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Objects/Transparent Background/steamTank.png" type="Texture" id=1]
+
+[node name="steamTank" type="RigidBody2D"]
+
+[node name="steamTank" type="Sprite" parent="."]
+texture = ExtResource( 1 )
