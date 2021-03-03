@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ndesh\\steam\\SteamEngine__03_01_21\\Steam Engine\\Steam Engine.csproj",
+      "projectUniqueName": "C:\\Users\\ndesh\\steam\\SteamEngine__03_02_21\\Steam Engine\\Steam Engine.csproj",
       "projectName": "Steam Engine",
-      "projectPath": "C:\\Users\\ndesh\\steam\\SteamEngine__03_01_21\\Steam Engine\\Steam Engine.csproj",
+      "projectPath": "C:\\Users\\ndesh\\steam\\SteamEngine__03_02_21\\Steam Engine\\Steam Engine.csproj",
       "packagesPath": "C:\\Users\\ndesh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ndesh\\steam\\SteamEngine__03_01_21\\Steam Engine\\.mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\ndesh\\steam\\SteamEngine__03_02_21\\Steam Engine\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ndesh\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -80,6 +80,7 @@ rightSpherePath = NodePath("Governor_Components/rightSphere")
 centerRodPath = NodePath("Governor_Components/centerRod")
 lidPath = NodePath("Governor_Components/lid")
 lidLifterPath = NodePath("Governor_Components/lidLifter")
+steamInputRatePath = NodePath("UserControl/steamInputIndicator")
 
 [node name="Sprites" type="Node2D" parent="."]
 rotation = 3.14159
@@ -209,13 +210,13 @@ process_material = SubResource( 4 )
 texture = ExtResource( 11 )
 
 [node name="UserControl" type="Node2D" parent="."]
-visible = false
 
 [node name="HSlider" type="HSlider" parent="UserControl"]
-margin_left = -1333.12
-margin_top = -819.465
-margin_right = -1033.12
-margin_bottom = -803.465
+visible = false
+margin_left = -1612.5
+margin_top = -928.996
+margin_right = -1312.5
+margin_bottom = -912.996
 min_value = 1.0
 max_value = 6.0
 value = 1.0
@@ -226,15 +227,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="UserControl"]
-margin_left = -1327.01
-margin_top = -837.705
-margin_right = -1184.01
-margin_bottom = -823.705
+[node name="steamInput" type="Label" parent="UserControl"]
+visible = false
+margin_left = -1606.39
+margin_top = -947.236
+margin_right = -1463.39
+margin_bottom = -933.236
 text = "Steam Input Flow Rate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="steamInputIndicator" type="Label" parent="UserControl"]
+margin_left = -1590.32
+margin_top = -940.01
+margin_right = -1443.32
+margin_bottom = -926.01
+text = "Steam Input Flow Rate:"
 
 [node name="Governor_Components" type="Node2D" parent="."]
 

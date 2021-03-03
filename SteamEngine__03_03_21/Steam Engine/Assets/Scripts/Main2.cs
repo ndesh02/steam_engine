@@ -29,6 +29,7 @@ public class Main2 : Node2D
     [Export] NodePath centerRodPath;
     [Export] NodePath lidPath;
     [Export] NodePath lidLifterPath;
+    [Export] NodePath steamInputRatePath;
 
 
     //Instance all the objects for the engine
@@ -56,6 +57,7 @@ public class Main2 : Node2D
     public RigidBody2D centerRod;
     public RigidBody2D lid;
     public RigidBody2D lidLifter;
+    public Label steamInputRate;
 
     //Steam values
     Vector2 steamForce = new Vector2(30,0);
@@ -94,6 +96,9 @@ public class Main2 : Node2D
     public float initialCollarHeight;
     public float lidHeight;
     public float lidLifterHeight;
+    public Color white = Color.Color8(255,255,255,255);
+    public Color lightRed = Color.Color8(222,155,155,255);
+    public Color darkRed = Color.Color8(255,0,0,255); 
 
 
     // Called when the node enters the scene tree for the first time.
@@ -122,6 +127,7 @@ public class Main2 : Node2D
         centerRod = GetNode<RigidBody2D>(centerRodPath) as RigidBody2D;
         lid = GetNode<RigidBody2D>(lidPath) as RigidBody2D;
         lidLifter = GetNode<RigidBody2D>(lidLifterPath) as RigidBody2D;
+        steamInputRate = GetNode<Label>(steamInputRatePath) as Label;
         
         wheelX = wheel.Position.x;
         wheelY = wheel.Position.y;
@@ -147,23 +153,28 @@ public class Main2 : Node2D
     {
 
         //Code that calculates the steam force based on the area and the location of the pipe and limiter
-        /*if(lid.Position.y <-45){
-            flowRate-=(float)0.1;
-        }
-        GD.Print(flowRate);*/
+        
 
         if(limiter.Position.x <386){
             if(lid.Position.y>-50){
+                flowRate+=(float)0.01;
                 RN = RN +(float)(Math.Pow(2,flowRate));
             }
-            GD.Print("RN: "+RN);
+            else{
+                flowRate = (float)0.1;
+            }
+        //    GD.Print("RN: "+RN);
             LN=0;
         }
         if(limiter.Position.x >=386){
             if(lid.Position.y>-50){
+                flowRate+=(float)0.01;
                 LN=LN + (float)(Math.Pow(2, flowRate));
             }
-            GD.Print("LN: "+LN);
+            else{
+                flowRate = (float)0.1;
+            }
+         //   GD.Print("LN: "+LN);
             RN=0;
         }
         //p = nrt/v
@@ -179,7 +190,7 @@ public class Main2 : Node2D
         }
         P = (RN-LN)*R*T/V;
         steamForce = new Vector2(P, 0);
-
+        GD.Print(P);
         //Code that makes all the pieces move according to the steam force
         smallRodLimiter.AngularVelocity = smallRodPipe.AngularVelocity;
        /* if(pipe.Position.x <535 && pipeRight==false){
@@ -229,7 +240,7 @@ public class Main2 : Node2D
         //calculating the force to apply to each sphere
         radius = Math.Abs(collar.Position.x - rightSphere.Position.x);
         force = (float)((rightSphere.Weight/9.81)*radius*Math.Pow(wheel.AngularVelocity,3));
-        GD.Print(wheel.AngularVelocity);
+       // GD.Print(wheel.AngularVelocity);
         leftSphere.AppliedForce = new Vector2(0,-force);
         rightSphere.AppliedForce = new Vector2(0, -force);
        /* if(force==0){
@@ -261,6 +272,18 @@ public class Main2 : Node2D
         lidLifter.Position = new Vector2(lidLifter.Position.x, lidLifterHeight + changeInCollarHeight);
        // GD.Print(lid.Position.y);
 
+       //colour of particles in tank
+       if(Math.Abs(P)<7){
+           tankSteam.Color = white;
+       }
+       else if(Math.Abs(P)<12){
+           tankSteam.Color = lightRed;
+       }
+       else{
+           tankSteam.Color = darkRed;
+       }
+
+        steamInputRate.Text = "Steam Input FLow Rate: "+flowRate;
         
     }
     public void _on_HSlider_value_changed(float value){
