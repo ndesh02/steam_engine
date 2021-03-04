@@ -81,6 +81,8 @@ centerRodPath = NodePath("Governor_Components/centerRod")
 lidPath = NodePath("Governor_Components/lid")
 lidLifterPath = NodePath("Governor_Components/lidLifter")
 steamInputRatePath = NodePath("UserControl/steamInputIndicator")
+governorLowerLeftJointPath = NodePath("Governor_Joints/leftLower_collar")
+governorLowerRightJointPath = NodePath("Governor_Joints/rightLower_collar")
 
 [node name="Sprites" type="Node2D" parent="."]
 rotation = 3.14159
@@ -108,9 +110,11 @@ position = Vector2( 404, 622.919 )
 position = Vector2( 297.796, 564.041 )
 
 [node name="Large_Rod_Wheel" parent="Sprites" instance=ExtResource( 6 )]
+position = Vector2( 723.059, 464 )
 
 [node name="Small_Rod_Wheel" parent="Sprites" instance=ExtResource( 7 )]
 rotation = -2.44346
+z_index = 4
 
 [node name="Cylinder" parent="Sprites" instance=ExtResource( 8 )]
 position = Vector2( 536, 469.701 )
@@ -129,12 +133,14 @@ texture = ExtResource( 10 )
 rotation = 3.14159
 
 [node name="Pipe_Large_Rod_Small_Rod" type="PinJoint2D" parent="Engine_Joints"]
-position = Vector2( 1178.37, 463.879 )
+position = Vector2( 1178.37, 464 )
+z_index = 4
+z_as_relative = false
 node_a = NodePath("../../Sprites/Large_Rod_Wheel")
 node_b = NodePath("../../Sprites/Small_Rod_Wheel")
 
 [node name="Pipe_and_Large_Rod" type="PinJoint2D" parent="Engine_Joints"]
-position = Vector2( 721.923, 464.228 )
+position = Vector2( 722, 464 )
 node_a = NodePath("../../Sprites/Cylinder")
 node_b = NodePath("../../Sprites/Large_Rod_Wheel")
 
@@ -295,13 +301,13 @@ z_index = -1
 z_as_relative = false
 
 [node name="leftLowerRod" parent="Governor_Components" instance=ExtResource( 20 )]
-position = Vector2( -763, -144 )
+position = Vector2( -740, -86 )
 rotation = -0.349066
 collision_layer = 2147500032
 collision_mask = 16384
 
 [node name="rightLowerRod" parent="Governor_Components" instance=ExtResource( 19 )]
-position = Vector2( -677, -144 )
+position = Vector2( -700, -86 )
 rotation = 0.349066
 
 [node name="lid" type="RigidBody2D" parent="Governor_Components"]

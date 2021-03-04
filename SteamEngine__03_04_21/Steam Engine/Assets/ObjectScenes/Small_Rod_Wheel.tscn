@@ -13,12 +13,12 @@ z_as_relative = false
 gravity_scale = 0.0
 
 [node name="Wheel Small Rod_Trans" type="Sprite" parent="."]
-position = Vector2( 58.1381, -0.33337 )
+position = Vector2( 60, -0.333 )
 z_as_relative = false
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 59.4787, -0.463623 )
+position = Vector2( 60, -0.464 )
 rotation = 1.5708
 z_index = 11
 z_as_relative = false
