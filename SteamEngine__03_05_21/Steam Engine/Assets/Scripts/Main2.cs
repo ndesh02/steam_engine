@@ -19,97 +19,73 @@ public class Main2 : Node2D
     [Export] NodePath steamInPipePath1;
     [Export] NodePath steamInPipePath2;
     [Export] NodePath steamInPipePath3;
-    [Export] NodePath collarPath;
-    [Export] NodePath leftUpperRodPath;
-    [Export] NodePath leftLowerRodPath;
-    [Export] NodePath leftSpherePath;
-    [Export] NodePath rightUpperRodPath;
-    [Export] NodePath rightLowerRodPath;
-    [Export] NodePath rightSpherePath;
-    [Export] NodePath centerRodPath;
+
     [Export] NodePath lidPath;
     [Export] NodePath lidLifterPath;
     [Export] NodePath steamInputRatePath;
-    [Export] NodePath governorLowerLeftJointPath;
-    [Export] NodePath governorLowerRightJointPath;
 
 
     //Instance all the objects for the engine
-    public RigidBody2D pipe;
-    public RigidBody2D largeRodPipe;
-    public RigidBody2D smallRodPipe;
-    public RigidBody2D largeRodLimiter;
-    public RigidBody2D smallRodLimiter;
-    public RigidBody2D wheel;
-    public RigidBody2D limiter;
-    public Particles2D steamInTank;
-    public Particles2D steamInPipe1;
-    public Particles2D steamInPipe2;
-    public Particles2D steamInPipe3;
-    public ParticlesMaterial tankSteam;
+    public static RigidBody2D pipe;
+    public static RigidBody2D largeRodPipe;
+    public static RigidBody2D smallRodPipe;
+    public static RigidBody2D largeRodLimiter;
+    public static RigidBody2D smallRodLimiter;
+    public static RigidBody2D wheel;
+    public static RigidBody2D limiter;
+    public static Particles2D steamInTank;
+    public static Particles2D steamInPipe1;
+    public static Particles2D steamInPipe2;
+    public static Particles2D steamInPipe3;
+    public static ParticlesMaterial tankSteam;
 
     //Instancing all of the governor objects
-    public RigidBody2D rightSphere;
-    public RigidBody2D leftSphere;
-    public RigidBody2D rightUpperRod;
-    public RigidBody2D leftUpperRod;
-    public RigidBody2D rightLowerRod;
-    public RigidBody2D leftLowerRod;
-    public RigidBody2D collar;
-    public RigidBody2D centerRod;
-    public RigidBody2D lid;
-    public RigidBody2D lidLifter;
-    public Label steamInputRate;
-    public PinJoint2D governorLowerLeftJoint;
-    public PinJoint2D governorLowerRightJoint;
-    public float governorLowerLeftJointInitialY;
-    public float governorLowerRightJointInitialY;
+    public static RigidBody2D lid;
+    public static RigidBody2D lidLifter;
+    public static Label steamInputRate;
+
 
     //Steam values
-    Vector2 steamForce = new Vector2(30,0);
+    Vector2 steamForce = new Vector2(0,0);
     //PV = NRT
 
     //pressure
-    public float P;
+    public static float P;
     //volume
-    public float V;
+    public static float V;
     //amount
-    public float RN;
-    public float LN;
-    public float flowRate = 1;
-    public float flowRateMagnifier = 10;
+    public static float RN;
+    public static float LN;
+    public static float flowRate = 1;
+    public static float flowRateMagnifier = 10;
     //ideal gas constant
-    public float R = (float)8.314;
+    public static float R = (float)8.314;
     //temperature in kelvin
-    public float T = 298;
+    public static float T = 298;
     //Breaking up the tank into subsections (width, height)
-    public float pipeSectionL;
-    public float pipeSectionR;
-    public float restOfV;
+    public static float pipeSectionL;
+    public static float pipeSectionR;
+    public static float restOfV;
     //Direction and position variables of some of the objects
-    public int pipeY;
-    public int limiterY;
-    public int largeRodLimiterY;
-    public int largeRodPipeY;
-    
-    //governor variables
-    public float force;
-    public float radius;
-    public float wheelY;
-    public float wheelX;
-    public float changeInCollarHeight = 0;
-    public float initialCollarHeight;
-    public float collarX;
-    public float lidHeight;
-    public float lidLifterHeight;
-    public Color white = Color.Color8(255,255,255,255);
-    public Color lightRed = Color.Color8(222,155,155,255);
-    public Color darkRed = Color.Color8(255,0,0,255); 
-    public float maxRotation=0;
-    public int iteration=0;
-    public bool left=false;
-    public bool switching =false;
-    public float sumChange=0;
+    public static int pipeY;
+    public static int limiterY;
+    public static int largeRodLimiterY;
+    public static int largeRodPipeY;
+    public static float wheelY;
+    public static float wheelX;
+
+
+
+    public static float lidHeight;
+    public static float lidLifterHeight;
+    public static Color white = Color.Color8(255,255,255,255);
+    public static Color lightRed = Color.Color8(222,155,155,255);
+    public static Color darkRed = Color.Color8(255,0,0,255); 
+    public static float maxRotation=0;
+    public static int iteration=0;
+    public static bool left=false;
+    public static bool switching =false;
+    public static float sumChange=0;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -127,28 +103,18 @@ public class Main2 : Node2D
         steamInPipe2 = GetNode<Particles2D>(steamInPipePath2) as Particles2D;
         steamInPipe3 = GetNode<Particles2D>(steamInPipePath3) as Particles2D;
         tankSteam = ResourceLoader.Load("res://Assets/Scenes/particlesTank.tres") as ParticlesMaterial;
-        rightUpperRod = GetNode<RigidBody2D>(rightUpperRodPath) as RigidBody2D;
-        rightLowerRod = GetNode<RigidBody2D>(rightLowerRodPath) as RigidBody2D;
-        leftUpperRod = GetNode<RigidBody2D>(leftUpperRodPath) as RigidBody2D;
-        leftLowerRod = GetNode<RigidBody2D>(leftLowerRodPath) as RigidBody2D;
-        rightSphere = GetNode<RigidBody2D>(rightSpherePath) as RigidBody2D;
-        leftSphere = GetNode<RigidBody2D>(leftSpherePath) as RigidBody2D;
-        collar = GetNode<RigidBody2D>(collarPath) as RigidBody2D;
-        centerRod = GetNode<RigidBody2D>(centerRodPath) as RigidBody2D;
+        
         lid = GetNode<RigidBody2D>(lidPath) as RigidBody2D;
         lidLifter = GetNode<RigidBody2D>(lidLifterPath) as RigidBody2D;
         steamInputRate = GetNode<Label>(steamInputRatePath) as Label;
-        governorLowerLeftJoint = GetNode<PinJoint2D>(governorLowerLeftJointPath) as PinJoint2D;
-        governorLowerRightJoint = GetNode<PinJoint2D>(governorLowerRightJointPath) as PinJoint2D;
+       
         
         wheelX = wheel.Position.x;
         wheelY = wheel.Position.y;
-        initialCollarHeight = collar.Position.y;
+        
         lidHeight = lid.Position.y;
         lidLifterHeight = lidLifter.Position.y;
-        governorLowerLeftJointInitialY = governorLowerLeftJoint.Position.y;
-        governorLowerRightJointInitialY = governorLowerRightJoint.Position.y;
-        collarX = collar.Position.x;
+        
 
         steamInPipe1.Amount = (int)(flowRate*flowRateMagnifier);
         steamInPipe2.Amount = (int)(flowRate*flowRateMagnifier);
@@ -165,7 +131,7 @@ public class Main2 : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
-
+    //    GD.Print(lidHeight - lid.Position.y);
         calculatingPressure();
         steamForce = new Vector2(P, 0);
 
@@ -182,10 +148,10 @@ public class Main2 : Node2D
         
         //Governor physics
         //calculating the force to apply to each sphere
-        governorPhysics();
-
+        Governor.governorPhysics();
+        
         //code to keep the governor stable since can't put axis locks on 2d joints
-        stopGovernorWeirdness();
+        Governor.stopGovernorWeirdness();
 
         //colour of particles in tank
         changeSteamColor();
@@ -206,7 +172,7 @@ public class Main2 : Node2D
         
         //Code that calculates the steam force based on the area and the location of the pipe and limiter
         if(limiter.Position.x <386){
-            if(lid.Position.y>-50){
+            if(lidHeight - lid.Position.y<48){
                 flowRate+=(float)0.01;
                 RN = RN +(float)(Math.Pow(2,flowRate));
             }
@@ -216,7 +182,7 @@ public class Main2 : Node2D
             LN=0;
         }
         if(limiter.Position.x >=386){
-            if(lid.Position.y>-50){
+            if(lidHeight - lid.Position.y<48){
                 flowRate+=(float)0.01;
                 LN=LN + (float)(Math.Pow(2, flowRate));
             }
@@ -248,42 +214,8 @@ public class Main2 : Node2D
         P = (RN-LN)*R*T/V;
     }
     
-    public void governorPhysics(){
-        radius = Math.Abs(collar.Position.x - rightSphere.Position.x);
-        force = (float)((rightSphere.Weight/9.81)*radius*wheel.AngularVelocity);
-        leftSphere.AppliedForce = new Vector2(0,-force);
-        rightSphere.AppliedForce = new Vector2(0, -force);
-    }
-    public void changeSteamColor(){
-        if(Math.Abs(P)<7){
-          tankSteam.Color = white;
-        }
-        else if(Math.Abs(P)<12){
-          tankSteam.Color = lightRed;
-        }
-        else{
-          tankSteam.Color = darkRed;
-        }
-        
-    }
-    public void stopGovernorWeirdness(){
-        collar.AppliedForce = new Vector2(0, collar.AppliedForce.y);
-        collar.RotationDegrees = 0;
-        collar.AngularVelocity = 0;
-        collar.LinearVelocity = new Vector2(0, collar.LinearVelocity.y);
-        collar.AppliedTorque = 0;
-        collar.Position = new Vector2(collarX, collar.Position.y);
-
-        changeInCollarHeight = collar.Position.y - initialCollarHeight;
-        lid.Position = new Vector2(lid.Position.x, lidHeight + changeInCollarHeight);
-        lidLifter.Position = new Vector2(lidLifter.Position.x, lidLifterHeight + changeInCollarHeight);
-
-        governorLowerLeftJoint.Position = new Vector2(governorLowerLeftJoint.Position.x, governorLowerLeftJointInitialY + changeInCollarHeight);
-        governorLowerRightJoint.Position = new Vector2(governorLowerRightJoint.Position.x, governorLowerRightJointInitialY + changeInCollarHeight);
-
-        leftLowerRod.Position = governorLowerLeftJoint.Position;
-        rightLowerRod.Position = governorLowerRightJoint.Position;
-    }
+    
+    
     
     public void stopEngineWeirdness(){
         pipe.AppliedForce = steamForce;
@@ -308,7 +240,19 @@ public class Main2 : Node2D
         largeRodLimiter.Position = new Vector2(largeRodLimiter.Position.x, largeRodLimiterY);
         largeRodPipe.Position = new Vector2(largeRodPipe.Position.x, largeRodPipeY);
         largeRodPipe.AppliedTorque = 0;
-        largeRodPipe.RotationDegrees = largeRodPipe.RotationDegrees - iteration*(float)0.1;
+        largeRodPipe.RotationDegrees = largeRodPipe.RotationDegrees - iteration*(float)0.128;
+    }
+    public void changeSteamColor(){
+        if(Math.Abs(P)<7){
+          tankSteam.Color = white;
+        }
+        else if(Math.Abs(P)<12){
+          tankSteam.Color = lightRed;
+        }
+        else{
+          tankSteam.Color = darkRed;
+        }
+        
     }
     public void _on_HSlider_value_changed(float value){
         flowRate = value;

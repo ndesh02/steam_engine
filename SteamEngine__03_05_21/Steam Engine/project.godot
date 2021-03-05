@@ -19,6 +19,10 @@ config/name="Steam Engine"
 run/main_scene="res://Assets/Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+globalVars="*res://Assets/Scripts/globalVars.cs"
+
 [display]
 
 window/size/width=1920

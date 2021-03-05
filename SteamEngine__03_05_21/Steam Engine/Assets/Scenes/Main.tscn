@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/ObjectScenes/Wheel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/ObjectScenes/Large_Rod_Limiter.tscn" type="PackedScene" id=2]
@@ -11,17 +11,10 @@
 [ext_resource path="res://Assets/Scripts/Main2.cs" type="Script" id=9]
 [ext_resource path="res://Assets/Objects/Transparent Background/Flywheel_Trans.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Objects/particles/whitePuff00_ediT.png" type="Texture" id=11]
-[ext_resource path="res://Assets/ObjectScenes/centerRod.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/ObjectScenes/leftSphere.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Assets/ObjectScenes/rightSphere.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Assets/ObjectScenes/collar.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Scenes/Governor_Components.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/ObjectScenes/steamTank.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Objects/Transparent Background/rod.png" type="Texture" id=16]
-[ext_resource path="res://Assets/ObjectScenes/rightUpperRod.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Assets/ObjectScenes/leftUpperRod.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Assets/ObjectScenes/rightLowerRod.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Assets/ObjectScenes/leftLowerRod.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Assets/Scenes/particlesTank.tres" type="Material" id=21]
-[ext_resource path="res://Assets/ObjectScenes/steamTank.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Assets/Objects/Transparent Background/lid.png" type="Texture" id=23]
 
 [sub_resource type="ParticlesMaterial" id=1]
@@ -70,19 +63,9 @@ steamInTankPath = NodePath("Steam_particles/InBox")
 steamInPipePath1 = NodePath("Steam_particles/FirstInPipe")
 steamInPipePath2 = NodePath("Steam_particles/SecondInPipe")
 steamInPipePath3 = NodePath("Steam_particles/ThirdInPipe")
-collarPath = NodePath("Governor_Components/collar")
-leftUpperRodPath = NodePath("Governor_Components/leftUpperRod")
-leftLowerRodPath = NodePath("Governor_Components/leftLowerRod")
-leftSpherePath = NodePath("Governor_Components/leftSphere")
-rightUpperRodPath = NodePath("Governor_Components/rightUpperRod")
-rightLowerRodPath = NodePath("Governor_Components/rightLowerRod")
-rightSpherePath = NodePath("Governor_Components/rightSphere")
-centerRodPath = NodePath("Governor_Components/centerRod")
-lidPath = NodePath("Governor_Components/lid")
-lidLifterPath = NodePath("Governor_Components/lidLifter")
+lidPath = NodePath("Lifting_Components/lid")
+lidLifterPath = NodePath("Lifting_Components/lidLifter")
 steamInputRatePath = NodePath("UserControl/steamInputIndicator")
-governorLowerLeftJointPath = NodePath("Governor_Joints/leftLower_collar")
-governorLowerRightJointPath = NodePath("Governor_Joints/rightLower_collar")
 
 [node name="Sprites" type="Node2D" parent="."]
 rotation = 3.14159
@@ -111,6 +94,7 @@ position = Vector2( 297.796, 564.041 )
 
 [node name="Large_Rod_Wheel" parent="Sprites" instance=ExtResource( 6 )]
 position = Vector2( 723.059, 464 )
+angular_damp = -1.0
 
 [node name="Small_Rod_Wheel" parent="Sprites" instance=ExtResource( 7 )]
 rotation = -2.44346
@@ -175,7 +159,7 @@ process_material = ExtResource( 21 )
 texture = ExtResource( 11 )
 
 [node name="InSteamTank" type="Particles2D" parent="Steam_particles"]
-position = Vector2( 327.792, 631.181 )
+position = Vector2( 319.935, 612.099 )
 z_index = 10
 z_as_relative = false
 amount = 50
@@ -191,7 +175,7 @@ process_material = SubResource( 2 )
 texture = ExtResource( 11 )
 
 [node name="steamTank" type="Particles2D" parent="Steam_particles"]
-position = Vector2( 339.131, 773.771 )
+position = Vector2( 332.396, 759.179 )
 rotation = 3.14159
 z_index = 2
 z_as_relative = false
@@ -251,140 +235,62 @@ margin_right = -1443.32
 margin_bottom = -926.01
 text = "Steam Input Flow Rate:"
 
-[node name="Governor_Components" type="Node2D" parent="."]
+[node name="Lifting_Components" type="Node2D" parent="."]
+position = Vector2( 130.579, -635.062 )
 
-[node name="rodAttachingToGovernor" type="RigidBody2D" parent="Governor_Components"]
-mode = 1
-gravity_scale = 1.1
+[node name="lidLifter" type="RigidBody2D" parent="Lifting_Components"]
+position = Vector2( -130.579, 635.062 )
+gravity_scale = 0.0
 
-[node name="rod2" type="Sprite" parent="Governor_Components/rodAttachingToGovernor"]
-position = Vector2( -995.15, -43.7127 )
+[node name="rod" type="Sprite" parent="Lifting_Components/lidLifter"]
+position = Vector2( -307.403, -78.9501 )
 rotation = 1.5708
-scale = Vector2( 1, 1.71286 )
+scale = Vector2( 0.911713, 2.40019 )
 texture = ExtResource( 16 )
 
-[node name="wheelRod" type="RigidBody2D" parent="Governor_Components"]
-z_index = -100
-z_as_relative = false
-mode = 1
-
-[node name="rod" type="Sprite" parent="Governor_Components/wheelRod"]
-position = Vector2( -1267.92, -281.387 )
-scale = Vector2( 1, 1.497 )
+[node name="rod2" type="Sprite" parent="Lifting_Components/lidLifter"]
+position = Vector2( 79.831, -307.264 )
+scale = Vector2( 1, 1.434 )
 texture = ExtResource( 16 )
 
-[node name="leftSphere" parent="Governor_Components" instance=ExtResource( 13 )]
-position = Vector2( -820, -152 )
-
-[node name="rightSphere" parent="Governor_Components" instance=ExtResource( 14 )]
-position = Vector2( -620, -152 )
-
-[node name="centerRod" parent="Governor_Components" instance=ExtResource( 12 )]
-position = Vector2( -720, -165 )
-collision_layer = 512
-collision_mask = 512
+[node name="steamTank" parent="Lifting_Components" instance=ExtResource( 13 )]
+position = Vector2( 0, -19 )
 mode = 1
 
-[node name="collar" parent="Governor_Components" instance=ExtResource( 15 )]
-position = Vector2( -720, -78 )
-
-[node name="leftUpperRod" parent="Governor_Components" instance=ExtResource( 18 )]
-position = Vector2( -780, -206 )
-rotation = 0.663225
-z_index = -1
-z_as_relative = false
-
-[node name="rightUpperRod" parent="Governor_Components" instance=ExtResource( 17 )]
-position = Vector2( -660, -206 )
-rotation = -0.663225
-z_index = -1
-z_as_relative = false
-
-[node name="leftLowerRod" parent="Governor_Components" instance=ExtResource( 20 )]
-position = Vector2( -740, -86 )
-rotation = -0.349066
-collision_layer = 2147500032
-collision_mask = 16384
-
-[node name="rightLowerRod" parent="Governor_Components" instance=ExtResource( 19 )]
-position = Vector2( -700, -86 )
-rotation = 0.349066
-
-[node name="lid" type="RigidBody2D" parent="Governor_Components"]
+[node name="lid" type="RigidBody2D" parent="Lifting_Components"]
+position = Vector2( -130.579, 635.062 )
 z_index = 10
 z_as_relative = false
 gravity_scale = 0.0
 
-[node name="lid" type="Sprite" parent="Governor_Components/lid"]
+[node name="lid" type="Sprite" parent="Lifting_Components/lid"]
 position = Vector2( 131.069, -480 )
 scale = Vector2( 0.52, 1 )
 z_index = 1000
 z_as_relative = false
 texture = ExtResource( 23 )
 
-[node name="lidLifter" type="RigidBody2D" parent="Governor_Components"]
-gravity_scale = 0.0
+[node name="rodAttachingToGovernor" type="RigidBody2D" parent="Lifting_Components"]
+position = Vector2( -130.579, 635.062 )
+mode = 1
+gravity_scale = 1.1
 
-[node name="rod" type="Sprite" parent="Governor_Components/lidLifter"]
-position = Vector2( -307.403, -78.9501 )
+[node name="rod2" type="Sprite" parent="Lifting_Components/rodAttachingToGovernor"]
+position = Vector2( -995.15, -43.7127 )
 rotation = 1.5708
-scale = Vector2( 0.911713, 2.40019 )
+scale = Vector2( 1, 1.71286 )
 texture = ExtResource( 16 )
 
-[node name="rod2" type="Sprite" parent="Governor_Components/lidLifter"]
-position = Vector2( 79.831, -307.264 )
-scale = Vector2( 1, 1.434 )
+[node name="wheelRod" type="RigidBody2D" parent="Lifting_Components"]
+position = Vector2( -130.579, 635.062 )
+z_index = -100
+z_as_relative = false
+mode = 1
+
+[node name="rod" type="Sprite" parent="Lifting_Components/wheelRod"]
+position = Vector2( -1267.92, -281.387 )
+scale = Vector2( 1, 1.497 )
 texture = ExtResource( 16 )
 
-[node name="steamTank" parent="Governor_Components" instance=ExtResource( 22 )]
-position = Vector2( 130.546, -644.311 )
-gravity_scale = 0.0
-
-[node name="Governor_Joints" type="Node2D" parent="."]
-
-[node name="rightUpper_centerRod" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -702, -258 )
-node_a = NodePath("../../Governor_Components/rightUpperRod")
-node_b = NodePath("../../Governor_Components/centerRod")
-
-[node name="leftUpper_centerRod" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -738, -258 )
-node_a = NodePath("../../Governor_Components/leftUpperRod")
-node_b = NodePath("../../Governor_Components/centerRod")
-
-[node name="leftLower_collar" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -740, -86 )
-node_a = NodePath("../../Governor_Components/collar")
-node_b = NodePath("../../Governor_Components/leftLowerRod")
-
-[node name="rightLower_collar" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -700, -86 )
-node_a = NodePath("../../Governor_Components/rightLowerRod")
-node_b = NodePath("../../Governor_Components/collar")
-
-[node name="leftSphere_leftUpper" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -820, -152 )
-node_a = NodePath("../../Governor_Components/leftSphere")
-node_b = NodePath("../../Governor_Components/leftUpperRod")
-
-[node name="rightSphere_rightUpper" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -620, -152 )
-node_a = NodePath("../../Governor_Components/rightUpperRod")
-node_b = NodePath("../../Governor_Components/rightSphere")
-
-[node name="rightUpper_rightLower" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -660, -200 )
-node_a = NodePath("../../Governor_Components/rightUpperRod")
-node_b = NodePath("../../Governor_Components/rightLowerRod")
-
-[node name="leftUpper_leftLower" type="PinJoint2D" parent="Governor_Joints"]
-position = Vector2( -780, -200 )
-node_a = NodePath("../../Governor_Components/leftUpperRod")
-node_b = NodePath("../../Governor_Components/leftLowerRod")
-
-[node name="centerRod_collar" type="GrooveJoint2D" parent="Governor_Joints"]
-position = Vector2( -720, -118.752 )
-node_a = NodePath("../../Governor_Components/centerRod")
-node_b = NodePath("../../Governor_Components/collar")
-initial_offset = 50.0
+[node name="Governor_Components" parent="." instance=ExtResource( 12 )]
 [connection signal="value_changed" from="UserControl/HSlider" to="." method="_on_HSlider_value_changed"]
