@@ -236,10 +236,8 @@ margin_bottom = -926.01
 text = "Steam Input Flow Rate:"
 
 [node name="Lifting_Components" type="Node2D" parent="."]
-position = Vector2( 130.579, -635.062 )
 
 [node name="lidLifter" type="RigidBody2D" parent="Lifting_Components"]
-position = Vector2( -130.579, 635.062 )
 gravity_scale = 0.0
 
 [node name="rod" type="Sprite" parent="Lifting_Components/lidLifter"]
@@ -254,11 +252,10 @@ scale = Vector2( 1, 1.434 )
 texture = ExtResource( 16 )
 
 [node name="steamTank" parent="Lifting_Components" instance=ExtResource( 13 )]
-position = Vector2( 0, -19 )
+position = Vector2( 130, -675 )
 mode = 1
 
 [node name="lid" type="RigidBody2D" parent="Lifting_Components"]
-position = Vector2( -130.579, 635.062 )
 z_index = 10
 z_as_relative = false
 gravity_scale = 0.0
@@ -271,7 +268,6 @@ z_as_relative = false
 texture = ExtResource( 23 )
 
 [node name="rodAttachingToGovernor" type="RigidBody2D" parent="Lifting_Components"]
-position = Vector2( -130.579, 635.062 )
 mode = 1
 gravity_scale = 1.1
 
@@ -282,7 +278,6 @@ scale = Vector2( 1, 1.71286 )
 texture = ExtResource( 16 )
 
 [node name="wheelRod" type="RigidBody2D" parent="Lifting_Components"]
-position = Vector2( -130.579, 635.062 )
 z_index = -100
 z_as_relative = false
 mode = 1

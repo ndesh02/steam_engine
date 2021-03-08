@@ -56,7 +56,7 @@ public class Main2 : Node2D
     //amount
     public static float RN;
     public static float LN;
-    public static float flowRate = 1;
+    public static float flowRate = 2;
     public static float flowRateMagnifier = 10;
     //ideal gas constant
     public static float R = (float)8.314;
@@ -76,8 +76,8 @@ public class Main2 : Node2D
 
 
 
-    public static float lidHeight;
-    public static float lidLifterHeight;
+    public static float lidInitialHeight;
+    public static float lidLifterInitialHeight;
     public static Color white = Color.Color8(255,255,255,255);
     public static Color lightRed = Color.Color8(222,155,155,255);
     public static Color darkRed = Color.Color8(255,0,0,255); 
@@ -112,8 +112,8 @@ public class Main2 : Node2D
         wheelX = wheel.Position.x;
         wheelY = wheel.Position.y;
         
-        lidHeight = lid.Position.y;
-        lidLifterHeight = lidLifter.Position.y;
+        lidInitialHeight = lid.Position.y;
+        lidLifterInitialHeight = lidLifter.Position.y;
         
 
         steamInPipe1.Amount = (int)(flowRate*flowRateMagnifier);
@@ -148,7 +148,8 @@ public class Main2 : Node2D
         
         //Governor physics
         //calculating the force to apply to each sphere
-        Governor.governorPhysics();
+        Governor.governorPhysics(wheel.AngularVelocity);
+        Governor.liftLid(lid, lidLifter, lidInitialHeight, lidLifterInitialHeight);
         
         //code to keep the governor stable since can't put axis locks on 2d joints
         Governor.stopGovernorWeirdness();
@@ -172,8 +173,13 @@ public class Main2 : Node2D
         
         //Code that calculates the steam force based on the area and the location of the pipe and limiter
         if(limiter.Position.x <386){
-            if(lidHeight - lid.Position.y<48){
-                flowRate+=(float)0.01;
+            if(lidInitialHeight - lid.Position.y<38){
+               // flowRate+=(float)0.01;
+                flowRate = 2;
+                RN = RN +(float)(Math.Pow(2,flowRate));
+            }
+            else if(lidInitialHeight - lid.Position.y<48){
+                flowRate=(float)0.75;
                 RN = RN +(float)(Math.Pow(2,flowRate));
             }
             else{
@@ -182,9 +188,14 @@ public class Main2 : Node2D
             LN=0;
         }
         if(limiter.Position.x >=386){
-            if(lidHeight - lid.Position.y<48){
-                flowRate+=(float)0.01;
+            if(lidInitialHeight - lid.Position.y<38){
+               // flowRate+=(float)0.01;
+               flowRate = 2;
                 LN=LN + (float)(Math.Pow(2, flowRate));
+            }
+            else if(lidInitialHeight - lid.Position.y<48){
+                flowRate=(float)0.75;
+                LN = LN +(float)(Math.Pow(2,flowRate));
             }
             else{
                 flowRate = (float)0.1;
@@ -240,7 +251,7 @@ public class Main2 : Node2D
         largeRodLimiter.Position = new Vector2(largeRodLimiter.Position.x, largeRodLimiterY);
         largeRodPipe.Position = new Vector2(largeRodPipe.Position.x, largeRodPipeY);
         largeRodPipe.AppliedTorque = 0;
-        largeRodPipe.RotationDegrees = largeRodPipe.RotationDegrees - iteration*(float)0.128;
+        largeRodPipe.RotationDegrees = largeRodPipe.RotationDegrees - iteration*(float)0.1;
     }
     public void changeSteamColor(){
         if(Math.Abs(P)<7){

@@ -5,4 +5,5 @@
 [node name="steamTank" type="RigidBody2D"]
 
 [node name="steamTank" type="Sprite" parent="."]
+scale = Vector2( 1, 1.2 )
 texture = ExtResource( 1 )

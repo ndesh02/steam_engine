@@ -69,7 +69,8 @@ public class Governor : Node2D
         collar.AppliedTorque = 0;
         collar.Position = new Vector2(collarX, collar.Position.y);
         changeInCollarHeight = collar.Position.y - initialCollarHeight;
-        liftLid();
+        //this is dependant on your system - your lids and lidLifter in the main scene or script
+        
 
         governorLowerLeftJoint.Position = new Vector2(governorLowerLeftJoint.Position.x, governorLowerLeftJointInitialY + changeInCollarHeight);
         governorLowerRightJoint.Position = new Vector2(governorLowerRightJoint.Position.x, governorLowerRightJointInitialY + changeInCollarHeight);
@@ -77,17 +78,18 @@ public class Governor : Node2D
         leftLowerRod.Position = governorLowerLeftJoint.Position;
         rightLowerRod.Position = governorLowerRightJoint.Position;
     }
-    public static void governorPhysics(){
-        radius = Math.Abs(collar.Position.x - rightSphere.Position.x);
+    public static void governorPhysics(float wheelAngularVelocity){
+        radius = Math.Abs(centerRod.Position.x - rightSphere.Position.x);
         //this is the line that calculates the force
-        force = (float)((rightSphere.Weight/9.81)*radius*Main2.wheel.AngularVelocity);
+        force = (float)((rightSphere.Mass)*radius*wheelAngularVelocity);
         leftSphere.AppliedForce = new Vector2(0,-force);
         rightSphere.AppliedForce = new Vector2(0, -force);
     }
-    public static void liftLid(){
+    public static void liftLid(RigidBody2D lid, RigidBody2D lidLifter, float initialLidHeight, float initialLidLifterHeight){
         changeInCollarHeight = collar.Position.y - initialCollarHeight;
-        Main2.lid.Position = new Vector2(Main2.lid.Position.x, Main2.lidHeight + changeInCollarHeight);
-        Main2.lidLifter.Position = new Vector2(Main2.lidLifter.Position.x, Main2.lidLifterHeight + changeInCollarHeight);
+        //change these lid objects in accordance with your own steam supply
+        lid.Position = new Vector2(lid.Position.x, initialLidHeight + changeInCollarHeight);
+        lidLifter.Position = new Vector2(lidLifter.Position.x, initialLidLifterHeight + changeInCollarHeight);
     }
     
 }
