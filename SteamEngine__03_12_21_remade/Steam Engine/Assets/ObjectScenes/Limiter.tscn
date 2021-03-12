@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Objects/Transparent Background/Limiter_Trans-removebg-preview (4).png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 213.856, 39.4735 )
+
+[node name="Limiter" type="RigidBody2D"]
+position = Vector2( 540.891, 620.919 )
+z_index = 1
+z_as_relative = false
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 206.577, -1.01802 )
+z_index = 10
+z_as_relative = false
+shape = SubResource( 1 )
+
+[node name="Limiter_Trans-removebg-preview (4)" type="Sprite" parent="."]
+position = Vector2( 207, 0 )
+texture = ExtResource( 5 )

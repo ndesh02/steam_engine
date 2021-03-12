@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/ObjectScenes/leftUpperRod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/ObjectScenes/rightUpperRod.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/ObjectScenes/collar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/ObjectScenes/leftLowerRod.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/ObjectScenes/rightSphere.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/ObjectScenes/rightLowerRod.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/ObjectScenes/centerRod.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/ObjectScenes/leftSphere.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Scripts/Governor.cs" type="Script" id=10]
+
+[node name="Governor_Components" type="Node2D"]
+script = ExtResource( 10 )
+collarPath = NodePath("collar")
+leftUpperRodPath = NodePath("leftUpperRod")
+leftLowerRodPath = NodePath("leftLowerRod")
+leftSpherePath = NodePath("leftSphere")
+rightUpperRodPath = NodePath("rightUpperRod")
+rightLowerRodPath = NodePath("rightLowerRod")
+rightSpherePath = NodePath("rightSphere")
+centerRodPath = NodePath("centerRod")
+governorLowerLeftJointPath = NodePath("joints/leftLower_collar")
+governorLowerRightJointPath = NodePath("joints/rightLower_collar")
+
+[node name="leftSphere" parent="." instance=ExtResource( 9 )]
+position = Vector2( -100, 13 )
+
+[node name="rightSphere" parent="." instance=ExtResource( 5 )]
+position = Vector2( 100, 13 )
+
+[node name="centerRod" parent="." instance=ExtResource( 7 )]
+collision_layer = 512
+collision_mask = 512
+mode = 1
+
+[node name="collar" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 86 )
+mode = 1
+
+[node name="leftUpperRod" parent="." instance=ExtResource( 1 )]
+position = Vector2( -60, -41 )
+rotation = 0.663225
+z_index = -1
+z_as_relative = false
+
+[node name="rightUpperRod" parent="." instance=ExtResource( 2 )]
+position = Vector2( 60, -41 )
+rotation = -0.663225
+z_index = -1
+z_as_relative = false
+
+[node name="leftLowerRod" parent="." instance=ExtResource( 4 )]
+position = Vector2( -20, 79 )
+rotation = -0.349066
+collision_layer = 2147500032
+collision_mask = 16384
+
+[node name="rightLowerRod" parent="." instance=ExtResource( 6 )]
+position = Vector2( 20, 79 )
+rotation = 0.349066
+
+[node name="joints" type="Node2D" parent="."]
+
+[node name="rightUpper_centerRod" type="PinJoint2D" parent="joints"]
+position = Vector2( 18, -93 )
+node_a = NodePath("../../rightUpperRod")
+node_b = NodePath("../../centerRod")
+
+[node name="leftUpper_centerRod" type="PinJoint2D" parent="joints"]
+position = Vector2( -18, -93 )
+node_a = NodePath("../../leftUpperRod")
+node_b = NodePath("../../centerRod")
+
+[node name="leftLower_collar" type="PinJoint2D" parent="joints"]
+position = Vector2( -20, 79 )
+node_a = NodePath("../../leftLowerRod")
+node_b = NodePath("../../collar")
+
+[node name="rightLower_collar" type="PinJoint2D" parent="joints"]
+position = Vector2( 20, 79 )
+node_a = NodePath("../../rightLowerRod")
+node_b = NodePath("../../collar")
+
+[node name="leftSphere_leftUpper" type="PinJoint2D" parent="joints"]
+position = Vector2( -100, 13 )
+node_a = NodePath("../../leftSphere")
+node_b = NodePath("../../leftUpperRod")
+
+[node name="rightSphere_rightUpper" type="PinJoint2D" parent="joints"]
+position = Vector2( 100, 13 )
+node_a = NodePath("../../rightSphere")
+node_b = NodePath("../../rightUpperRod")
+
+[node name="rightUpper_rightLower" type="PinJoint2D" parent="joints"]
+position = Vector2( 60, -35 )
+node_a = NodePath("../../rightUpperRod")
+node_b = NodePath("../../rightLowerRod")
+
+[node name="leftUpper_leftLower" type="PinJoint2D" parent="joints"]
+position = Vector2( -60, -35 )
+node_a = NodePath("../../leftUpperRod")
+node_b = NodePath("../../leftLowerRod")
+
+[node name="centerRod_collar" type="GrooveJoint2D" parent="joints"]
+position = Vector2( 0, 46 )
+initial_offset = 50.0
